@@ -312,7 +312,7 @@
 
 <div class="wrap" id="app"></div>
 
-<footer class="foot">158 practice items · local &amp; private — your progress is stored only in this browser.</footer>
+<footer class="foot">158 core + 26 additional practice items · local &amp; private — your progress is stored only in this browser.</footer>
 
 <script>
 /* =========================================================
@@ -482,6 +482,269 @@ const BANK = [
 /* =========================================================
    STATE & PERSISTENCE
 ========================================================= */
+const ADDITIONAL_BANK = [
+  {
+    "text": "Universal Containers' finance team requires every Expense_Report__c record to be approved by the manager and then, if the total amount is greater than $5,000, by the Chief Financial Officer (CFO). The automation must route the request to each approver in sequence, track each response, and update the Status field after final approval.\nWhich Salesforce feature should the Platform App Builder use?",
+    "options": [
+      "A validation rule on Expense_Report__c that blocks the save until a custom Approved_By__c field is populated.",
+      "A flow approval process with sequential approval steps for the manager and the CFO.",
+      "A screen flow that prompts the manager and the CFO to enter their decision when launched from the Expense Report record page.",
+      "A record-triggered flow with a Decision element that routes to different paths based on the expense amount."
+    ],
+    "correct": 1
+  },
+  {
+    "text": "Universal Containers' Human Resources application requires that when a new Employee record is created, a welcome task must be generated immediately. Additionally, if the onboarding status is still 'Pending' 5 days before the start date, a reminder email must be sent. How should the Platform App Builder configure a single record-triggered flow to handle both timelines?",
+    "options": [
+      "Configure a Pause element within a screen flow.",
+      "Add a Scheduled Path alongside the Run Immediately path.",
+      "Build a schedule-triggered flow that runs every 5 days.",
+      "Place an Asynchronous Path inside a Loop element."
+    ],
+    "correct": 1
+  },
+  {
+    "text": "Universal Containers has a record-triggered flow with a Scheduled Path to send an email 7 days after a Case closes. The Platform App Builder needs to confirm that a recently closed Case has an email waiting in the queue. Where in Setup should the app builder look to see this pending action?",
+    "options": [
+      "Time-Based Automations",
+      "Flow Trigger Explorer",
+      "Apex Flex Queue",
+      "Paused and Failed Flow Interviews"
+    ],
+    "correct": 0
+  },
+  {
+    "text": "When an Opportunity stage is changed to Closed Lost, users need to complete the Reason Lost field. How should a Platform App Builder configure this requirement?",
+    "options": [
+      "Create a validation rule to enforce the conditional requirement.",
+      "Use the page layout editor to require the Reason Lost field.",
+      "Use a field-level requirement to require users to complete Reason Lost.",
+      "Make the Reason Lost field required using Dynamic Forms without filter criteria."
+    ],
+    "correct": 0
+  },
+  {
+    "text": "Cloud Kicks is building a Field Generation prompt template in Prompt Builder that populates a custom field on the Contact record page with a paragraph summarizing the contact's most recent orders. To ground the prompt in the contact's related order data, the Platform App Builder needs to build a flow.\nWhich type of flow should the app builder use?",
+    "options": [
+      "Schedule-triggered flow",
+      "Template-triggered prompt flow",
+      "Record-triggered flow",
+      "Autolaunched flow"
+    ],
+    "correct": 1
+  },
+  {
+    "text": "At Universal Containers, a Platform App Builder has built a record-triggered flow on Opportunity that updates several related records when the stage changes to Closed Won. The flow must also block the save and show the user an inline error message on the Stage field when the related Account does not have a Contract record. The error must surface in the Lightning UI like a validation rule error.\nWhich Flow Builder element should the app builder add?",
+    "options": [
+      "Custom Error element with a configured error message and field-level placement on Stage.",
+      "End element placed on the path where no Contract record is found so the flow stops processing.",
+      "Fault path leading to an Assignment element that sets an error message variable.",
+      "Screen element that displays the error message before the save completes."
+    ],
+    "correct": 0
+  },
+  {
+    "text": "A Platform App Builder would like to simplify the user experience with customized, intuitive record pages that change based on field input. What should they consider?",
+    "options": [
+      "Leverage Screen Flows for user input.",
+      "Migrate to Dynamic Forms and create visibility rules.",
+      "Save a Filtered Related List for users to update records.",
+      "Create multiple Page Layouts dependent on the User."
+    ],
+    "correct": 1
+  },
+  {
+    "text": "The Platform App Builder at Universal Containers recently launched a project management application with ever-changing timelines. The app has improved visibility of project status, but users are back-dating their projects, preventing stakeholders from having real-time insight into important timeline updates. How should the app builder solve for this?",
+    "options": [
+      "Prevent users from editing date fields once the record has been created.",
+      "Auto-populate key dates using formula fields based on the project start date and average project timelines.",
+      "Implement field tracking on all key date fields to review with stakeholders.",
+      "Use a validation rule to prevent users from entering dates that are in the past."
+    ],
+    "correct": 3
+  },
+  {
+    "text": "A Platform App Builder is running a report on Accounts with Opportunities. The default record count (RowCount) value is included.\nWhich value is this default record count based on?",
+    "options": [
+      "The total count of all object records, including both parent and child records.",
+      "The total count of all object records related to Opportunities.",
+      "The total count of all child object records.",
+      "The total count of all parent object records."
+    ],
+    "correct": 3
+  },
+  {
+    "text": "At Cloud Kicks, a Platform App Builder is ready to deploy a release from a Full sandbox to production. The deployment runs the full Apex test suite, which takes about 30 minutes. The team has scheduled a Saturday morning cutover window and wants to minimize the time the deployment occupies during the window.\nWhich deployment plan should the app builder use?",
+    "options": [
+      "Upload the outbound change set at the start of the cutover window and click Deploy.",
+      "Upload the outbound change set, run Validate Only against production a day before the cutover, then click Quick Deploy at the start of the cutover window.",
+      "Upload the outbound change set during the cutover window and select Run Local Tests to reduce the deployment time.",
+      "Upload the outbound change set the day before the cutover, then click Deploy at the start of the cutover window."
+    ],
+    "correct": 1
+  },
+  {
+    "text": "Cloud Kicks streams loyalty data from an external system into Data 360 as a data model object (DMO). When a loyalty member's tier in that DMO changes to Diamond, the company wants Salesforce automation to run automatically in near real time. The trigger is a change to the DMO in Data 360, not a change to a Salesforce record.\nWhich type of flow should the Platform App Builder use?",
+    "options": [
+      "Template-triggered prompt flow",
+      "Schedule-triggered flow",
+      "Data 360-triggered flow",
+      "Record-triggered flow"
+    ],
+    "correct": 2
+  },
+  {
+    "text": "A Platform App Builder is troubleshooting user visibility issues and needs to identify why a user is unable to experience record page Field Sections on their mobile device.\nWhich action should they take?",
+    "options": [
+      "Enable Dynamic Forms and Dynamic Highlights on Mobile in Salesforce Mobile App Studio.",
+      "Use visibility rules to optimize for Mobile use.",
+      "Migrate back to standard Page Layouts for mobile users while maintaining Dynamic Forms for desktop users.",
+      "Add additional Field Section components to simplify the Mobile layout."
+    ],
+    "correct": 0
+  },
+  {
+    "text": "Universal Containers has configured a record-triggered flow that fails with an error stating that the maximum number of SOQL queries has been exceeded. While reviewing the interview path in the Flow Debugger, the Platform App Builder notices that the same Get Records element is being executed repeatedly for every record in the transaction. How should the app builder change the flow to fix this error?",
+    "options": [
+      "Move the Get Records element outside of the Loop element.",
+      "Change the Loop element to an Assignment element.",
+      "Change the flow trigger from After-Save to Before-Save.",
+      "Connect a Fault Path to a custom Screen element."
+    ],
+    "correct": 0
+  },
+  {
+    "text": "An inventory management system outside of Salesforce publishes a secure messaging notification whenever an item goes out of stock. The Platform App Builder needs to design a process in Salesforce that listens for this specific message payload and instantly creates a task for the procurement team.\nWhich flow type is designed to execute immediately upon receiving this external message structure?",
+    "options": [
+      "Screen flow",
+      "Platform event-triggered flow",
+      "Record-triggered flow",
+      "Autolaunched flow with no trigger"
+    ],
+    "correct": 1
+  },
+  {
+    "text": "A Platform App Builder wants to create a formula field on an Account to include data from related Contacts, but is unable to find the relationship in the formula editor. What is a limitation of formulas that is likely causing the issue?",
+    "options": [
+      "The Contact and Account objects do not have a master-detail relationship.",
+      "The formula field limit was reached on the Account object.",
+      "There are more than 5,000 characters in the formula.",
+      "They are unable to reference the child records."
+    ],
+    "correct": 3
+  },
+  {
+    "text": "A Platform App Builder needs to create a flow that can be invoked by a custom Lightning web component. The app builder wants to create a variable that can accept an input parameter so values can be passed from the component into the flow. How should the app builder create this variable?",
+    "options": [
+      "Use a global variable like $Record.",
+      "Define public properties in the component that can be referenced by the flow.",
+      "Create a Variable resource type in Flow with 'Available for Input' checked.",
+      "Inputs can be passed through the Constant resource type in Flow."
+    ],
+    "correct": 2
+  },
+  {
+    "text": "At Ursa Major Solar (UMS), a Platform App Builder built an HR Onboarding application that includes custom objects, page layouts, Lightning record pages, and an Apex class. The application is built in a Developer sandbox tied to UMS's production org. UMS Logistics, a wholly-owned subsidiary, runs a separate Salesforce production org that has no deployment connection to UMS's production org. The app builder must move the HR Onboarding application from UMS's Developer sandbox to UMS Logistics' production org for evaluation.\nWhich deployment plan should the app builder use?",
+    "options": [
+      "Upload an outbound change set from UMS's Developer sandbox to UMS Logistics' production org.",
+      "Create a managed package in UMS's Developer sandbox and install it in UMS Logistics' production org using the install URL.",
+      "Create an unmanaged package in UMS's Developer sandbox and install it in UMS Logistics' production org using the install URL.",
+      "Refresh a UMS Logistics sandbox from UMS's Developer sandbox, then deploy from there using change sets."
+    ],
+    "correct": 2
+  },
+  {
+    "text": "Universal Containers wants to collect information from a user and use that input to update a related Account record.\nWhich combination of flow elements should the Platform App Builder use to meet this requirement?",
+    "options": [
+      "Screen flow with Screen elements and an Update Records element.",
+      "Record-triggered flow with a Screen element and a Create Records element.",
+      "Schedule-triggered flow with an Assignment element and a Create Records element.",
+      "Autolaunched flow with a Screen element and an Update Records element."
+    ],
+    "correct": 0
+  },
+  {
+    "text": "Cloud Kicks models the relationship between Stores and Loyalty Members with a custom Store_Membership__c junction object that has two master-detail relationships: one to Store__c and one to Loyalty_Member__c. A regional manager has Read access to Store__c but no access to Loyalty_Member__c. The manager reports that Store_Membership__c records do not appear on the Store record page. What should the Platform App Builder do to resolve this?",
+    "options": [
+      "Create a sharing rule on the Store_Membership__c object, granting the manager's role access.",
+      "Grant Read access to the Store_Membership__c object on the profile.",
+      "Grant Read access to the Loyalty_Member__c object on the profile.",
+      "Create a sharing rule on the Loyalty_Member__c object, granting the manager's role access."
+    ],
+    "correct": 2
+  },
+  {
+    "text": "Universal Containers is integrating Salesforce with an external data warehouse. UC wants to make sure that any user that has the Integration User permission set has Read access to all fields on the Account object, including any new fields that are created, without updating permissions again in the future. What should the Platform App Builder recommend?",
+    "options": [
+      "Assign View All Fields in Account Object Permissions.",
+      "Create a permission set group.",
+      "Grant View All Data in System Permissions.",
+      "Change Account Object Permissions by using View All Records."
+    ],
+    "correct": 0
+  },
+  {
+    "text": "Universal Containers wants to control the visibility for a specific section of a Lightning page based on the device type used by the user. What should a Platform App Builder recommend?",
+    "options": [
+      "Configure different Record Types.",
+      "Use Dynamic Forms.",
+      "Edit the Page Layout.",
+      "Create a Lightning web component."
+    ],
+    "correct": 1
+  },
+  {
+    "text": "Universal Containers is building a screen flow to enhance the user experience for creating new Opportunity records and related Opportunity Products. UC needs to configure the flow so that if Opportunity Product creation fails, both the Opportunity and Opportunity Product creation are rolled back. The current flow displays an Opportunity Screen, creates the Opportunity, displays an Opportunity Product Screen, and then creates the Opportunity Product. What change is required?",
+    "options": [
+      "Move Create Opportunity before Opportunity Screen, then add a Fault Path to Create Opportunity and Roll Back Records.",
+      "Add Delete Records after Create Opportunity Products.",
+      "Add a Fault Path to Create Opportunity Product and Roll Back Records.",
+      "Move Create Opportunity after Opportunity Product Screen, then add a Fault Path to Create Opportunity Product and Roll Back Records."
+    ],
+    "correct": 3
+  },
+  {
+    "text": "Universal Containers wants to deploy AI-powered autonomous agents that can take actions on behalf of users, using natural language instructions and data from Salesforce.\nWhich feature should the Platform App Builder configure to meet this requirement?",
+    "options": [
+      "Einstein Prediction Builder",
+      "Agentforce",
+      "Flow Orchestration",
+      "Omni-Channel Routing"
+    ],
+    "correct": 1
+  },
+  {
+    "text": "Universal Containers wants to build an onboarding process for new customers that will include multiple user interactions with multiple steps across different days.\nWhich automation tool should UC use?",
+    "options": [
+      "Custom Lightning web component",
+      "Entitlement process",
+      "Flow Orchestration",
+      "Screen flow"
+    ],
+    "correct": 2
+  },
+  {
+    "text": "Universal Containers needs to stamp the Stage_Last_Changed__c date field on the Opportunity record whenever the StageName changes. How should the Platform App Builder implement this request?",
+    "options": [
+      "A before-save record-triggered flow on Opportunity that assigns today's date to Stage_Last_Changed__c when StageName is changed.",
+      "A scheduled path on an after-save record-triggered flow that updates Stage_Last_Changed__c to today's date one hour after the change.",
+      "An approval process on Opportunity that uses Update Records to set Stage_Last_Changed__c to today's date when StageName is changed.",
+      "An autolaunched flow invoked from a custom button that the user clicks after editing Opportunity StageName."
+    ],
+    "correct": 0
+  },
+  {
+    "text": "Cloud Kicks wants to display the number of Opportunities that are Closed Won with a Close Date within the last year on the Account detail page. What should a Platform App Builder use to implement this?",
+    "options": [
+      "Roll-up summary field",
+      "Formula field",
+      "Activity timeline",
+      "Validation rule"
+    ],
+    "correct": 0
+  }
+];
+const ALL_BANK = BANK.concat(ADDITIONAL_BANK);
 const LS_MARK = 'apb_marked_v1';
 const LS_THEME = 'apb_theme_v1';
 const LS_SETTINGS = 'apb_quiz_settings_v1';
@@ -509,7 +772,8 @@ const savedSettings = loadSettings();
 
 const state = {
   marks: loadMarks(),
-  screen: 'start',
+  screen: 'login',
+  bankGroup: 'main',
   modeType: null,     // 'study' | 'exam' | 'review'
   order: [],          // array of bank indices in play order, each item: {bankIndex, options, correctIndex}
   current: 0,
@@ -557,10 +821,10 @@ document.getElementById('homeBtn').addEventListener('click', ()=>{
    BUILD SESSION
 ========================================================= */
 function buildSession(modeType, opts){
-  let indices = BANK.map((_,i)=>i);
+  let indices = state.bankGroup === 'additional' ? ADDITIONAL_BANK.map((_,i)=>BANK.length+i) : BANK.map((_,i)=>i);
 
   if(modeType === 'review'){
-    indices = [...state.marks];
+    indices = [...state.marks].filter(i => state.bankGroup === 'additional' ? i >= BANK.length : i < BANK.length);
     if(indices.length === 0) return false;
   } else {
     if(opts.shuffleQ) indices = shuffleArr(indices);
@@ -570,7 +834,7 @@ function buildSession(modeType, opts){
   }
 
   const order = indices.map(bankIndex=>{
-    const q = BANK[bankIndex];
+    const q = ALL_BANK[bankIndex];
     let opts_ = q.options.map((t,i)=>({t,orig:i}));
     if(opts.shuffleO) opts_ = shuffleArr(opts_);
     const correctIndex = opts_.findIndex(o=>o.orig === q.correct);
@@ -600,8 +864,9 @@ const app = document.getElementById('app');
 const homeBtn = document.getElementById('homeBtn');
 
 function render(){
-  homeBtn.style.display = state.screen === 'start' ? 'none' : 'flex';
-  if(state.screen === 'start') renderStart();
+  homeBtn.style.display = state.screen === 'start' || state.screen === 'login' ? 'none' : 'flex';
+  if(state.screen === 'login') renderLogin();
+  else if(state.screen === 'start') renderStart();
   else if(state.screen === 'quiz') renderQuiz();
   else if(state.screen === 'results') renderResults();
 }
@@ -609,8 +874,34 @@ function render(){
 /* =========================================================
    RENDER: START SCREEN
 ========================================================= */
+
+/* This password is checked locally in the browser. It is not server-side security:
+   someone with the HTML file can inspect its source and its question bank. */
+function renderLogin(){
+  app.innerHTML = `<div class="panel" style="max-width:460px;margin:11vh auto 0;">
+    <h2 style="font-family:var(--serif);margin:0 0 8px;">Platform App Builder</h2>
+    <p style="color:var(--ink-soft);">Enter the access password to open the simulator.</p>
+    <form id="loginForm" style="display:flex;flex-direction:column;gap:13px;">
+      <label for="accessPassword">Password</label>
+      <input id="accessPassword" type="password" autocomplete="current-password" required
+        style="padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--surface-2);color:var(--ink);">
+      <div id="loginError" role="alert" style="min-height:22px;color:var(--bad);font-size:.87rem;"></div>
+      <button type="submit" class="btn btn-primary">Sign in</button>
+    </form>
+  </div>`;
+  document.getElementById('loginForm').addEventListener('submit', e=>{
+    e.preventDefault();
+    if(document.getElementById('accessPassword').value === 'AppBuilder26P'){
+      state.screen='start';
+      render();
+    } else {
+      document.getElementById('loginError').textContent='Incorrect password. Try again.';
+    }
+  });
+}
+
 function renderStart(){
-  const markedCount = state.marks.size;
+  const markedCount = [...state.marks].filter(i=>i<BANK.length).length;
   app.innerHTML = `
     <div class="hero">
       <svg class="constellation" viewBox="0 0 520 120" aria-hidden="true">
@@ -653,6 +944,16 @@ function renderStart(){
       </button>
     </div>
 
+    <div class="panel" id="additionalQuestions" style="border-color:var(--accent);">
+      <span class="tag" style="color:var(--accent);font-size:.75rem;letter-spacing:.07em;text-transform:uppercase;">Extra practice</span>
+      <h3 style="font-family:var(--serif);font-size:1.35rem;margin:6px 0;">Additional Questions</h3>
+      <p style="color:var(--ink-soft);margin:0 0 16px;">26 questions from the additional PDF. Practice these separately from the original 158 questions.</p>
+      <div class="row" style="gap:10px;">
+        <button class="btn btn-primary" id="additionalStudyBtn">Study additional questions</button>
+        <button class="btn btn-ghost" id="additionalExamBtn">Exam: 26 questions</button>
+      </div>
+    </div>
+
     <div class="panel">
       <h4>Session settings</h4>
       <div class="row">
@@ -686,8 +987,18 @@ function renderStart(){
     if(confirm('Remove all marked questions?')){ state.marks.clear(); saveMarks(); renderStart(); }
   });
 
+  for(const [id,mode] of [['additionalStudyBtn','study'],['additionalExamBtn','exam']]){
+    document.getElementById(id).addEventListener('click', ()=>{
+      state.bankGroup='additional';
+      const ok=buildSession(mode,{shuffleQ:state.shuffleQ,shuffleO:state.shuffleO,examCount:ADDITIONAL_BANK.length});
+      if(!ok) return;
+      state.screen='quiz'; render();
+      if(mode==='exam') startTimer();
+    });
+  }
   app.querySelectorAll('.mode-card').forEach(card=>{
     card.addEventListener('click', ()=>{
+      state.bankGroup = 'main';
       const mode = card.dataset.mode;
       if(card.classList.contains('disabled')) return;
       const ok = buildSession(mode, {shuffleQ: state.shuffleQ, shuffleO: state.shuffleO, examCount: state.examCount});
@@ -729,7 +1040,7 @@ function renderQuiz(){
   const total = state.order.length;
   const cur = state.current;
   const item = state.order[cur];
-  const q = BANK[item.bankIndex];
+  const q = ALL_BANK[item.bankIndex];
   const isStudy = state.modeType === 'study' || state.modeType === 'review';
   const answered = state.answers[cur];
   const revealed = isStudy && state.revealed[cur];
@@ -883,7 +1194,7 @@ function renderResults(){
       <h4>Question review</h4>
       <div class="result-list">
         ${rows.map(r=>{
-          const q = BANK[r.item.bankIndex];
+          const q = ALL_BANK[r.item.bankIndex];
           const marked = state.marks.has(r.item.bankIndex);
           return `<div class="result-row" data-jump="${r.i}">
             <div class="result-badge ${r.ua===undefined?'incorrect':(r.isCorrect?'correct':'incorrect')}">${r.ua===undefined?'–':(r.isCorrect?'✓':'✗')}</div>
@@ -903,7 +1214,7 @@ function renderResults(){
     const wrongIdx = rows.filter(r=>!r.isCorrect).map(r=>r.item.bankIndex);
     if(wrongIdx.length===0){ alert('Nothing to retake — perfect score!'); return; }
     const order = wrongIdx.map(bankIndex=>{
-      const q = BANK[bankIndex];
+      const q = ALL_BANK[bankIndex];
       let opts_ = q.options.map((t,i)=>({t,orig:i}));
       if(state.shuffleO) opts_ = shuffleArr(opts_);
       const correctIndex = opts_.findIndex(o=>o.orig===q.correct);
