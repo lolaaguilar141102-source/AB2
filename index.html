@@ -317,6 +317,15 @@
 
   .hide{display:none !important;}
   footer.foot{text-align:center;color:var(--muted);font-size:.78rem;padding:30px 0 50px;}
+
+  /* Final layout fix: navigator is the first DOM child, so row-reverse puts it on the RIGHT. */
+  .quiz-shell { display:flex !important; flex-direction:row-reverse !important; align-items:flex-start; gap:22px; }
+  .quiz-shell > .nav-panel { flex:0 0 220px; width:220px; min-width:220px; order:0; }
+  .quiz-shell > .quiz-main { flex:1 1 0; min-width:0; order:0; }
+  @media (max-width:900px) {
+    .quiz-shell { flex-direction:column-reverse !important; }
+    .quiz-shell > .nav-panel, .quiz-shell > .quiz-main { flex:initial; width:100%; min-width:0; }
+  }
 </style>
 </head>
 <body>
